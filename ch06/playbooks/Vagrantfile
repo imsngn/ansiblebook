@@ -1,6 +1,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.ssh.insert_key = false
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+      config.proxy.http     = "http://proxy_url/"
+      config.proxy.https    = "http://proxy_url/"
+      config.proxy.no_proxy = "localhost,127.0.0.1,10.237.0.0/16,10.252.0.0/16,*.cooporate.com,*.cooporate.net,*.cooporate.biz"
+  end
   config.vm.box = "ubuntu/trusty64"
   config.vm.network "private_network", ip: "192.168.33.10"
 end
